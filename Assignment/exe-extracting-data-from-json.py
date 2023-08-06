@@ -1,33 +1,35 @@
-# required libraries/modules
+# Importing necessary libraries/modules
 from urllib.request import urlopen
 import urllib.parse, urllib.error
 import json
 
-# request for URL
+# Requesting user input for a URL
 url = input("Enter location: ")
 
-# default URL for testing/debugging
+# Setting a default URL for testing/debugging if user input is empty
 if len(url) < 1:
     url = "http://py4e-data.dr-chuck.net/comments_1856260.json"
 
-# print 'Receiving' message to match sample execution
+# Printing a message to indicate that data retrieval is in progress
 print(f"Retrieving: {url}")
 
-# open URL. Read it in and convert it from byte to string type
+# Opening the URL, reading its contents, and converting it from bytes to a string
 jsn = urlopen(url).read().decode()
 
-# counting total number of characters read
-print(f"Retrieving {len(jsn)} characters")
+# Printing the number of characters retrieved
+print(f"Retrieved {len(jsn)} characters")
 
-# prime 'data' to parse string as json objects
+# Parsing the retrieved string data as JSON objects and storing it in the 'data' variable
 data = json.loads(jsn)
 
-# looping through list of 'comments' and count+summing all 'count' values
+# Initializing variables to count and sum the 'count' values from the 'comments' list
 total = 0
 count = 0
+
+# Looping through each 'comment' in the 'comments' list and counting the total number of comments and summing up their 'count' values
 for comment in data['comments']:
     count += 1
     total += int(comment['count'])
 
-# formatted output to match sample execution
+# Printing the count of comments and their total sum
 print(f"Count: {count}\nSum: {total}")

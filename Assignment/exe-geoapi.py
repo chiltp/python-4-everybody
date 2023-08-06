@@ -1,45 +1,45 @@
-# required libraries/modules
+# Importing necessary libraries/modules
 from urllib.request import urlopen
 from urllib.parse import urlencode
 import urllib.error
 import json
 
-# initializing a dictionary with a 'key' parameter
-param = {'key' : 42}
+# Initializing a dictionary with a 'key' parameter
+param = {'key': 42}
 
-# requesting for an address
+# Requesting user input for an address
 url = input("Enter location: ")
 
-# initializing the first half of the URL
+# Initializing the first half of the URL for the web service
 serviceurl = "http://py4e-data.dr-chuck.net/json?"
 
-# adding 'address' parameter to dictionary
+# Adding the 'address' parameter to the dictionary
 param['address'] = url
 
-# default address used for testing/debugging
+# Setting a default address if user input is empty
 if len(url) < 1:
     param['address'] = "University of Malaya"
 
-# combining two halves to create the whole URL
+# Combining the two halves of the URL to create the complete URL
 url = serviceurl + urlencode(param)
 
-# printing 'Retrieving' message to match sample execution
+# Printing a message to indicate that data retrieval is in progress
 print(f"Retrieving {url}")
 
-# opening the URL, reading it into 'jsn' and converting to str type
+# Opening the URL, reading its contents, and converting it to a string
 jsn = urlopen(url).read().decode()
 
-# printing 'Retrieved' message to match sample execution
+# Printing a message to indicate that data retrieval is complete and showing the length of the retrieved data
 print(f"Retrieved {len(jsn)} characters")
 
-# loading in str data and parsing it in JSON structure
+# Loading the string data into a JSON format
 data = json.loads(jsn)
 
-# dumping the data to see its structure
+# Uncomment the line below to see the JSON data structure
 # print(json.dumps(data, indent=2))
 
-# locating 'place_id' and storing the value
+# Locating the 'place_id' key in the JSON data and storing its value
 placeID = data["results"][0]["place_id"]
 
-# formatted output
+# Printing the place ID retrieved from the JSON data
 print(f"Place id {placeID}")
